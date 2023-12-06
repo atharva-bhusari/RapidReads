@@ -56,22 +56,25 @@ reinfested after treatment.My room mate refuses to buy the lotion needed to kill
 treated the infestation of our apartment will not go away. I'm almost there to asking him to move out if he refuses 
 treatment. He is not on the lease."""
 
-
-summary = generate_summary(text, 5)
+print('\nInput Text:', text)
+summary = generate_summary(text, 3)
 summary_sentences = summary.split('. ')
 formatted_summary = '.\n'.join(summary_sentences)
 
-print(formatted_summary)
+# print(formatted_summary)
 
 from rouge import Rouge
 
 def evaluate_rouge(reference_text, summary_text):
     rouge = Rouge()
     scores = rouge.get_scores(reference_text, summary_text)
+    print(f'\nReference Summary: {reference_text}\n')
+    print(f'Predictied Summary: {summary_text}\n')
+    print(f"ROUGE Score: {scores[0]['rouge-1']['f']}\n")
     return scores[0]['rouge-1']['f']
 
 reference_summary = """Fiance and I recently got infected with scabies. Room mate refuses to get treated and our 
 apartment will not go away. I'm afraid he will leave if he doesn't. Should I ask him to leave?"""
 
 rouge_score = evaluate_rouge(reference_summary, formatted_summary)
-print(rouge_score)
+# print(rouge_score)
